@@ -1,0 +1,47 @@
+     // vymeni riadky i, j v poli H[][]
+     void SWAPH(int i, int j) {
+         int tmp = 0;
+         for (int k = 0; k <= 2; k += 1) {
+             tmp = H[i][k];
+             H[i][k] = H[j][k];
+             H[j][k] = tmp;
+         }
+     }
+
+     // BubleSort -- zotriedi pole H[][] podla stlpca 0 neklesajuco
+     void sortH(void) {
+         int zlepsenie = 1;
+         while (zlepsenie != 0) {
+             zlepsenie = 0;
+             for (int k = 1; k < m; k += 1) {
+                 if (H[k][0] > H[k + 1][0]) {
+                     SWAPH(k, k + 1);
+                     zlepsenie = 1;
+// printf("Riadky %d a %d neboli dobre usporiadane", k, k + 1);
+// getchar();
+                 }
+             }
+         }
+     }
+
+     // ShellSort -- zotriedi pole H[][] podla stlpca 0 neklesajuco
+     void ShellSortH(void) {
+         int gap;
+         for (gap = m / 2 + 1; gap >= 1; gap = gap/2.2) {
+             if (gap == 2) gap = 3;
+             printf("gap= %d\n", gap);
+             for (int i = 1; i + gap <= m; i += 1) {
+                 int j = i + gap;
+                 int k;
+                 if (H[i][0] > H[j][0]) {
+                     SWAPH(i, j);
+                     for (k = i; k - gap >= 1; k = k - gap) {
+                         int l = k - gap;
+                         if (H[l][0] <= H[k][0]) { break; }
+                         SWAPH(l, k);
+                     }
+                 }
+
+             }
+         }
+     }
