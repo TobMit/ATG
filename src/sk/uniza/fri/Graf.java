@@ -17,7 +17,7 @@ import java.util.Scanner;
  *
  * @author tomas
  */
-public class Graf {○
+public class Graf {
 
     private int n; // pocet vrcholov grafu
     private int m; // pocet hran grafu
@@ -156,7 +156,7 @@ public class Graf {○
 
         //sornovanie súbora BubleSort
         this.bubleSort();
-        //this.shellSort();
+        //this.shellSort();   < poriešiť z prof
         //sornovanie súbora ShellSort
 
 
