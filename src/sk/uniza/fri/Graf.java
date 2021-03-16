@@ -27,6 +27,7 @@ public class Graf {
         this.n = paPocetVrcholov;
         this.m = paPocetHran;
         this.H = new int[1 + m][3];
+        this.shellSort(0);
     }
     /*
     Nacitanie grafu zo suboru:
@@ -83,6 +84,7 @@ public class Graf {
             g.H[j][1] = v;
             g.H[j][2] = c;
         }
+
 
         return g;
     }
@@ -156,7 +158,7 @@ public class Graf {
 
         //sornovanie súbora BubleSort
         //this.bubleSort();
-        this.shellSort(2);
+        //this.shellSort(2);
         //sornovanie súbora ShellSort
 
 
@@ -231,6 +233,7 @@ public class Graf {
         }
     }
 
+
     //BubleSort -- zotriedi pole H[][] podla stlpca 0 neklesajuco
     private void bubleSort() {
         int zlepsenie = 1;
@@ -255,7 +258,7 @@ public class Graf {
     }
 
     public void zobrazenieShellSort() {
-        this.shellSort(2);
+        //this.shellSort(2);
         //m - počet hrán
         //n - počet vrcholov
         for (int i = 1; i <= this.m; i++) {
