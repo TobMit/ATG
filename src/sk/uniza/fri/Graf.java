@@ -258,7 +258,7 @@ public class Graf {
     }
 
     public void zobrazenieShellSort() {
-        //this.shellSort(2);
+        this.shellSort(2);
         //m - počet hrán
         //n - počet vrcholov
         for (int i = 1; i <= this.m; i++) {
