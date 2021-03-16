@@ -155,8 +155,8 @@ public class Graf {
     public void cvicenieTriFloydovAlgoritmus() {
 
         //sornovanie súbora BubleSort
-        this.bubleSort();
-        //this.shellSort();   < poriešiť z prof
+        //this.bubleSort();
+        this.shellSort(2);
         //sornovanie súbora ShellSort
 
 
@@ -206,10 +206,10 @@ public class Graf {
     }
 
     //ShellSort -- zotriedi pole H[][] podla stlpca 0 neklesajuco
- /*   private void shellSort() {
-        double gap;
+    private void shellSort(int s) {
+        //double gap;
         int gap;
-        for (gap = this.m / 2 + 1; gap >= 1; gap = gap / 2.2) { // <---------------------------- opýtať sa ako je to myslené!!!
+        for (gap = this.m / 2 + 1; gap >= 1; gap = ( 5 * gap / 11)) {
             if (gap == 2) {
                 gap = 3;
             }
@@ -217,11 +217,11 @@ public class Graf {
             for (int i = 1; i + gap <= this.m; i++) {
                 int j = i + gap;
                 int k;
-                if (this.H[i][0] > this.H[j][0]) {
+                if (this.H[i][s] > this.H[j][s]) {
                     this.swap(i, j);
                     for (k = i; k - gap >= 1; k = k - gap) {
                         int l = k - gap;
-                        if (this.H[l][0] <= this.H[k][0]) {
+                        if (this.H[l][s] <= this.H[k][s]) {
                             break;
                         }
                         this.swap(l, k);
@@ -230,7 +230,7 @@ public class Graf {
             }
         }
     }
-*/
+
     //BubleSort -- zotriedi pole H[][] podla stlpca 0 neklesajuco
     private void bubleSort() {
         int zlepsenie = 1;
@@ -251,6 +251,18 @@ public class Graf {
             odlozenieH = this.H[i][k];
             this.H[i][k] = this.H[j][k];
             this.H[j][k] = odlozenieH;
+        }
+    }
+
+    public void zobrazenieShellSort() {
+        this.shellSort(2);
+        //m - počet hrán
+        //n - počet vrcholov
+        for (int i = 1; i <= this.m; i++) {
+            for (int j = 0; j < 3; j++) {
+                System.out.print(this.H[i][j] + " ");
+            }
+            System.out.println();
         }
     }
 
