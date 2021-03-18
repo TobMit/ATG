@@ -27,7 +27,6 @@ public class Graf {
         this.n = paPocetVrcholov;
         this.m = paPocetHran;
         this.H = new int[1 + m][3];
-        this.shellSort(0);
     }
     /*
     Nacitanie grafu zo suboru:
@@ -85,7 +84,7 @@ public class Graf {
             g.H[j][2] = c;
         }
 
-
+        g.shellSort(0);
         return g;
     }
 
@@ -252,10 +251,11 @@ public class Graf {
     }
 
     public void zobrazenieShellSort() {
-        this.shellSort(2);
+        //this.shellSort(2);
         //m - počet hrán
         //n - počet vrcholov
         for (int i = 1; i <= this.m; i++) {
+            System.out.printf("%2d.  ",i);
             for (int j = 0; j < 3; j++) {
                 System.out.print(this.H[i][j] + " ");
             }
@@ -263,16 +263,25 @@ public class Graf {
         }
     }
 
-    public void utriedenieMatice() {
+
+    public void utriedenieMatice(int r) {
         //inicialzicia vynulovanie pola S[]
-        int[] poleS = new int[this.n + 1];
-        for (int i = 0; i < n + 1; i++) {
+        int velkostMatice = this.H[m][0];
+        int[] poleS = new int[velkostMatice + 1]; //<--- v prezentáci nie je určená veľkosť matice, takže sa ju snažím vypočítať podľa posledného prvku
+        //for (int i = 0; i < n + 1; i++) {  //<----------------------- nerozumiem ako to prof myslel, pretože n je omnoho väčšie ako veľkosť matice
+                                           //dalej nie je určené presne aká byť veľká matica,
+        //    poleS[i] = 0;
+       // }
+
+        //vynulovanie pola podlaS mňa
+        for (int i = 0; i < poleS.length; i++) {
             poleS[i] = 0;
         }
 
         //poleS bude ukazovať na prvý riadok pola H tak, že H[poleS[i]][0] = i.
         //Ak v H vstlpci 0 neobsahuje i potom poleS[i] = 0
-
+        //Inak. PoleS[i] --> i (index) je číslo vrchola na prvom mieste poľa H
+        //               --> hodnota poleS[i] je reálny riadok kde sa i nachádza prvý krát
         for (int k = 1; k <= m; k++) {
             int i = this.H[k][0];
             if (poleS[i] == 0) {
@@ -280,10 +289,33 @@ public class Graf {
             }
 
         }
-        poleS[n + 1] = this.m + 1;
+
+        //poleS[this.n + 1] = this.m + 1;  <--- nechápem čo robí
 
 
+        //výpisy aby som chápal čo sa tam vlastne robí
+//        System.out.println("n:" + this.n + " m:" + this.m + " veľkosť pola H: " + this.H.length + " veľkosť pola S:" + poleS.length);
+//        System.out.println(" i  S[i]");
+//        for (int i = 0; i < poleS.length; i++) {
+//            System.out.printf("%2d  %2d\n", i, poleS[i]);
+//        }
+//        System.out.printf("\n");
 
+
+        //Môže sa stať že tabuľka nejaké prky neobsahuje, preto ich treba zaplniť
+        //robí sa to tak že sa zaplní číslom ktoré nasleduje, preto sa poleS prechádza odzadu
+        for (int i = poleS.length - 1; i >= 1; i--) {
+            if (poleS[i] == 0) {
+                poleS[i] = poleS[i + 1];
+            }
+        }
+
+
+        //výpis všetkých hrán z H+(r)
+        for (int i = poleS[r]; i < poleS[r + 1]; i++) {
+            int j = this.H[i][1];
+            System.out.printf("(%d, %d), cena %d\n", r, j, this.H[i][2]);
+        }
     }
 
 }

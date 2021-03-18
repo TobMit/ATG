@@ -17,11 +17,12 @@ class PrikladyGrafy {
      * @throws java.io.FileNotFoundException
      */
     public static void main(String[] args) throws FileNotFoundException {
-        Graf g = Graf.nacitajSubor("src/ATG_DAT/ShortestPath/TEST_mini.hrn");
+        Graf g = Graf.nacitajSubor("src/ATG_DAT/ShortestPath/Florida.hrn");
 
         //g.cvicenieTriFloydovAlgoritmus();
         //g.cvicenieDva();
-        g.zobrazenieShellSort();
+        g.utriedenieMatice(7);
+        //g.zobrazenieShellSort();
     }
 }
 
