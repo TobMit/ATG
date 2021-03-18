@@ -6,11 +6,11 @@
 package sk.uniza.fri;
 
 
-import java.awt.image.Kernel;
+//import java.awt.image.Kernel;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
-import java.util.Arrays;
+//import java.lang.reflect.Array;
+//import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -156,12 +156,6 @@ public class Graf {
 
     public void cvicenieTriFloydovAlgoritmus() {
 
-        //sornovanie súbora BubleSort
-        //this.bubleSort();
-        //this.shellSort(2);
-        //sornovanie súbora ShellSort
-
-
         int[][] maticaVzdialenosti = new int [this.n + 1][this.n + 1];
 
         //Vynovanie pola
@@ -269,6 +263,28 @@ public class Graf {
         }
     }
 
+    public void utriedenieMatice() {
+        //inicialzicia vynulovanie pola S[]
+        int[] poleS = new int[this.n + 1];
+        for (int i = 0; i < n + 1; i++) {
+            poleS[i] = 0;
+        }
+
+        //poleS bude ukazovať na prvý riadok pola H tak, že H[poleS[i]][0] = i.
+        //Ak v H vstlpci 0 neobsahuje i potom poleS[i] = 0
+
+        for (int k = 1; k <= m; k++) {
+            int i = this.H[k][0];
+            if (poleS[i] == 0) {
+                poleS[i] = k;
+            }
+
+        }
+        poleS[n + 1] = this.m + 1;
+
+
+
+    }
 
 }
 
