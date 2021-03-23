@@ -342,6 +342,8 @@ public class Graf {
                 S[i] = S[i + 1];
             }
         }
+
+        //Výpis hrán
         for (int i = S[r]; i < S[r + 1]; i++) {
             int j = this.H[i][1];
             System.out.printf("(%d, %d), cena %d\n", r, j, this.H[i][2]);
