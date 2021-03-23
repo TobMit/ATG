@@ -4,7 +4,6 @@
   * and open the template in the editor.
   */
 package sk.uniza.fri;
-import sk.uniza.fri.Graf;
 import java.io.FileNotFoundException;
 
 /**
@@ -21,7 +20,7 @@ class PrikladyGrafy {
 
         //g.cvicenieTriFloydovAlgoritmus();
         //g.cvicenieDva();
-        g.utriedenieMatice(7);
+        g.poleSmernikov(7);
         //g.zobrazenieShellSort();
     }
 }

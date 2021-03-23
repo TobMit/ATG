@@ -84,6 +84,7 @@ public class Graf {
             g.H[j][2] = c;
         }
 
+        // roztriedenie matice
         g.shellSort(0);
         return g;
     }
@@ -264,11 +265,11 @@ public class Graf {
     }
 
 
-    public void utriedenieMatice(int r) {
+    public void poleSmernikov(int r) {
         //inicialzicia vynulovanie pola S[]
-        int velkostMatice = this.H[m][0];
+        int velkostMatice = this.H[m][0];// veľkosť polaS je určená najväčším prvom v pole H
         int[] poleS = new int[velkostMatice + 1]; //<--- v prezentáci nie je určená veľkosť matice, takže sa ju snažím vypočítať podľa posledného prvku
-        //for (int i = 0; i < n + 1; i++) {  //<----------------------- nerozumiem ako to prof myslel, pretože n je omnoho väčšie ako veľkosť matice
+        //for (int i = 0; i < n + 1; i++) {  //<----------------------- nerozumiem ako je to myslel, pretože n je omnoho väčšie ako veľkosť matice
                                            //dalej nie je určené presne aká byť veľká matica,
         //    poleS[i] = 0;
        // }
