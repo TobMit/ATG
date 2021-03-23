@@ -19,7 +19,7 @@ class PrikladyGrafy {
         Graf g = Graf.nacitajSubor("src/ATG_DAT/ShortestPath/TEST_mini.hrn");
 
         //g.cvicenieTriFloydovAlgoritmus();
-        //g.cvicenieDva();
+        g.zakladnyAlgoritmus();
         //g.poleSmernikovMojaVerzia(7);
         g.maticaSmernikov(5);
         //g.zobrazenieShellSort();

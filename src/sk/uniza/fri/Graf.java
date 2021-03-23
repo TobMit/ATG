@@ -89,7 +89,7 @@ public class Graf {
         return g;
     }
 
-    public void cvicenieDva() {
+    public void zakladnyAlgoritmus() {
         int v;
         int u;
         //nacitanie vstupov
