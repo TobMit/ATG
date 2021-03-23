@@ -265,9 +265,9 @@ public class Graf {
     }
 
 
-    public void poleSmernikov(int r) {
+    public void poleSmernikovMojaVerzia(int r) {
         //inicialzicia vynulovanie pola S[]
-        int velkostMatice = this.H[m][0];// veľkosť polaS je určená najväčším prvom v pole H
+        int velkostMatice = this.H[m][0];// velkosť polaS je určená najväčším prvom v pole H
         int[] poleS = new int[velkostMatice + 1]; //<--- v prezentáci nie je určená veľkosť matice, takže sa ju snažím vypočítať podľa posledného prvku
         //for (int i = 0; i < n + 1; i++) {  //<----------------------- nerozumiem ako je to myslel, pretože n je omnoho väčšie ako veľkosť matice
                                            //dalej nie je určené presne aká byť veľká matica,
@@ -291,7 +291,7 @@ public class Graf {
 
         }
 
-        //poleS[this.n + 1] = this.m + 1;  <--- nechápem čo robí
+        //poleS[this.n + 1] = this.m + 1;  <--- ukáže na riadok nevyužitý v riadku n + 1
 
 
         //výpisy aby som chápal čo sa tam vlastne robí
@@ -314,6 +314,35 @@ public class Graf {
 
         //výpis všetkých hrán z H+(r)
         for (int i = poleS[r]; i < poleS[r + 1]; i++) {
+            int j = this.H[i][1];
+            System.out.printf("(%d, %d), cena %d\n", r, j, this.H[i][2]);
+        }
+    }
+
+    public void maticaSmernikov(int r) {
+        int[] S = new int[n + 2];
+
+        //vynulovanie pola
+        for (int i = 0; i < n + 1; i++) {
+            S[i] = 0;
+        }
+
+        //s[i] ukazuje na prvý riadok ola H taký te H[k][0] = i
+
+        for (int k = 1; k <= m; k++) {
+            int i = this.H[k][0];
+            if (S[i] == 0) {
+                S[i] = k;
+            }
+            S[n + 1] = m + 1;
+        }
+
+        for (int i = n; i >= 1; i--) {
+            if (S[i] == 0) {
+                S[i] = S[i + 1];
+            }
+        }
+        for (int i = S[r]; i < S[r + 1]; i++) {
             int j = this.H[i][1];
             System.out.printf("(%d, %d), cena %d\n", r, j, this.H[i][2]);
         }
