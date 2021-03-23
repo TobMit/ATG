@@ -251,7 +251,7 @@ public class Graf {
         }
     }
 
-    public void zobrazenieShellSort() {
+    public void zobrazenieMatice() {
         //this.shellSort(2);
         //m - počet hrán
         //n - počet vrcholov
