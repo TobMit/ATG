@@ -22,11 +22,25 @@ public class Graf {
     private int n; // pocet vrcholov grafu
     private int m; // pocet hran grafu
     private int H[][]; // pole udajov o hranach
+    private int[] z;
+    private int[] E;
+    private int nE;
+    private int[] t;
+    private int[] x;
+    private int[] S;
 
     public Graf(int paPocetVrcholov, int paPocetHran) {
         this.n = paPocetVrcholov;
         this.m = paPocetHran;
         this.H = new int[1 + m][3];
+
+        this.z = new int[this.n + 1];
+        this.E = new int[this.n + 1];
+        this.nE = 0;
+        this.S = new int[this.n + 2];
+
+        this.t = new int[this.n + 1];
+        this.x = new int[this.n + 1];
     }
     /*
     Nacitanie grafu zo suboru:
@@ -320,7 +334,7 @@ public class Graf {
     }
 
     public void maticaSmernikov(int r) {
-        int[] S = new int[n + 2];
+        //int[] S = new int[n + 2];
 
         //vynulovanie pola
         for (int i = 0; i < n + 1; i++) {
@@ -343,11 +357,141 @@ public class Graf {
             }
         }
 
-        //Výpis hrán
-        for (int i = S[r]; i < S[r + 1]; i++) {
-            int j = this.H[i][1];
-            System.out.printf("(%d, %d), cena %d\n", r, j, this.H[i][2]);
+        if (r > 0) {
+            //Výpis hrán
+            for (int i = S[r]; i < S[r + 1]; i++) {
+                int j = this.H[i][1];
+                System.out.printf("(%d, %d), cena %d\n", r, j, this.H[i][2]);
+            }
         }
+    }
+
+
+    public void labelSetAlgoritmus() {
+        //-1 preto aby sa nám nevypisovali hrany.
+        this.maticaSmernikov(-1);
+        int u;
+        int v;
+
+        //Vrcholy mnoziny E su E[1], E[2], ..., E[nE - 1], E[nE]
+        //nE - pocet prvkov mnoziny E
+        int[] E = new int[this.n + 1];
+
+        //z[i] = 0 ak vrchol i nepatri do mnoziny E
+        //z[i] = 1 ak vrchol i patri do mnoziny E
+        int[] z = new int[this.n + 1];
+
+        this.shellSort(0);
+
+
+        //Nacitanie vstupu
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Zaciatocny vrchol");
+        u = sc.nextInt();
+        System.out.println("Konecny vrchol");
+        v = sc.nextInt();
+
+        //Inicializacia
+        for (int i = 1; i < this.n + 1; i++) {
+            this.t[i] = Integer.MAX_VALUE / 2 - 2;
+            this.x[i] = 0;
+            this.E[i] = 0;
+            this.z[i] = 0;
+        }
+
+        //u je startovaci vrchol
+        this.t[u] = 0;
+
+        //Vlozenie zaciatocneho vrchola do mnoziny E
+        this.insertToEndE(u);
+        while (this.nE > 0) {
+            int r = this.extractFromEndE(); //label correct
+
+            //int r = this.extractMinFromE(); //toto bude label set
+            //int r = this.extractFromBeginningE(); //label correct
+            //if (r == v) stop //V pripade label correct staci skoncit ked sme sa dostali do ciela
+            /*
+            if (r == v) {
+                break;
+            }
+             */
+            for (int k = this.S[r]; k < this.S[r + 1]; k++) {
+                int j = this.H[k][1];
+                int crj = this.H[k][2];
+
+                if (this.t[j] > this.t[r] + crj) {
+                    this.t[j] = this.t[r] + crj;
+                    this.x[j] = r;
+                    this.insertToEndE(j);
+                }
+            }
+        }
+
+        System.out.println("Vzdialenost z vrchola " + u + " do vrchola " + v + " je " + this.t[v]);
+
+        //Najkratsia cesta
+        int w = v;
+
+        System.out.print("Cela cesta: ");
+        while (this.x[w] > 0) {
+            System.out.print(this.x[w] + " ");
+            w = this.x[w];
+        }
+    }
+
+    public void insertToEndE(int j) {
+        if (this.z[j] == 0) {
+            this.nE++;
+            this.E[nE] = j;
+            this.z[j] = 1;
+        }
+    }
+
+    public int extractFromE() {
+        int w = this.E[this.nE];
+        this.E[this.nE] = 0;
+        this.z[w] = 0;
+        return w;
+    }
+
+    //Vybranie prvka z konca pola E
+    public int extractFromEndE() {
+        int w = this.E[this.nE];
+        this.E[this.nE] = 0;
+        this.z[w] = 0;
+        this.nE--;
+        return w;
+    }
+
+    public int extractFromBeginningE() {
+        int w = this.E[1];
+        this.E[1] = this.E[this.nE];
+        this.E[this.nE] = 0;
+        this.nE--;
+        this.z[w] = 0;
+        return w;
+    }
+
+    public int extractMinFromE() {
+        //Hladanie prvku postupnosti E s minimalnym t
+
+        int temp = Integer.MAX_VALUE;
+        int imin = 1; //index prvku E s minimalnym t
+
+        for (int i = 1; i < this.nE + 1; i++) {
+            if (this.t[i] < temp) {
+                temp = this.t[i];
+                imin = i;
+            }
+        }
+
+        int w = this.E[imin];
+        this.E[imin] = this.E[this.nE];
+        this.E[this.nE] = 0;
+        this.nE--;
+        this.z[w] = 0;
+        return w;
+
     }
 
 }

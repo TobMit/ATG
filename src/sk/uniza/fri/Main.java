@@ -68,6 +68,7 @@ class PrikladyGrafy {
             System.out.println("3. Matica smernikov");
             System.out.println("4. Informácie o digrafe");
             System.out.println("5. Výpis digrafu");
+            System.out.println("6. LababelSet");
             System.out.println("0. Koniec");
             System.out.print("Vaša volba: ");
 
@@ -88,6 +89,9 @@ class PrikladyGrafy {
                     break;
                 case 5:
                     g.zobrazenieMatice();
+                    break;
+                case 6:
+                    g.labelSetAlgoritmus();
                     break;
                 default:
                     System.exit(0);
