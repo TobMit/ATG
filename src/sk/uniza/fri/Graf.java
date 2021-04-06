@@ -21,7 +21,7 @@ public class Graf {
 
     private int n; // pocet vrcholov grafu
     private int m; // pocet hran grafu
-    private int H[][]; // pole udajov o hranach
+    private int[][] H; // pole udajov o hranach
     private int[] z;
     private int[] E;
     private int nE;
@@ -103,6 +103,7 @@ public class Graf {
         return g;
     }
 
+    //------------------------------------- zakladny Algoritmus ---------------------------------------
     public void zakladnyAlgoritmus() {
         int v;
         int u;
@@ -161,13 +162,12 @@ public class Graf {
         }
     }
 
-
-
     public void printInfo() {
         System.out.println("Pocet vrcholov: " + n);
         System.out.println("Pocet hran: " + m);
     }
 
+    //--------------------------------------- Floydov Algoritmus --------------------------------------
     public void cvicenieTriFloydovAlgoritmus() {
 
         int[][] maticaVzdialenosti = new int [this.n + 1][this.n + 1];
@@ -207,9 +207,10 @@ public class Graf {
             for (int j = 1; j < this.n + 1; j++) {
                 if (maticaVzdialenosti[i][j] < m + 1) {
                     System.out.printf("%3d, ", maticaVzdialenosti[i][j]);
-               } else {
+                } else {
                     System.out.printf(" - , ");
                 }
+
             }
             System.out.printf("]\n");
         }
@@ -376,11 +377,11 @@ public class Graf {
 
         //Vrcholy mnoziny E su E[1], E[2], ..., E[nE - 1], E[nE]
         //nE - pocet prvkov mnoziny E
-        int[] E = new int[this.n + 1];
+        //int[] E = new int[this.n + 1];
 
         //z[i] = 0 ak vrchol i nepatri do mnoziny E
         //z[i] = 1 ak vrchol i patri do mnoziny E
-        int[] z = new int[this.n + 1];
+        //int[] z = new int[this.n + 1];
 
         this.shellSort(0);
 
