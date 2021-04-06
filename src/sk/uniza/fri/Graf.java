@@ -215,6 +215,7 @@ public class Graf {
         }
     }
 
+    //------------------------------------- Sorty -----------------------------------------------------
     //ShellSort -- zotriedi pole H[][] podla stlpca 0 neklesajuco
     private void shellSort(int s) {
         //double gap;
@@ -241,7 +242,6 @@ public class Graf {
         }
     }
 
-
     //BubleSort -- zotriedi pole H[][] podla stlpca 0 neklesajuco
     private void bubleSort() {
         int zlepsenie = 1;
@@ -265,12 +265,13 @@ public class Graf {
         }
     }
 
+
     public void zobrazenieMatice() {
         //this.shellSort(2);
         //m - počet hrán
         //n - počet vrcholov
         for (int i = 1; i <= this.m; i++) {
-            System.out.printf("%2d.  ",i);
+            System.out.printf("%2d.  ", i);
             for (int j = 0; j < 3; j++) {
                 System.out.print(this.H[i][j] + " ");
             }
@@ -278,7 +279,7 @@ public class Graf {
         }
     }
 
-
+    // -------------------------------------- Matice Smerníkov ---------------------------------------
     public void poleSmernikovMojaVerzia(int r) {
         //inicialzicia vynulovanie pola S[]
         int velkostMatice = this.H[m][0];// velkosť polaS je určená najväčším prvom v pole H
@@ -366,7 +367,7 @@ public class Graf {
         }
     }
 
-
+    //--------------------------------------- Label Set ----------------------------------------------
     public void labelSetAlgoritmus() {
         //-1 preto aby sa nám nevypisovali hrany.
         this.maticaSmernikov(-1);
@@ -439,7 +440,7 @@ public class Graf {
         }
     }
 
-    public void insertToEndE(int j) {
+    private void insertToEndE(int j) {
         if (this.z[j] == 0) {
             this.nE++;
             this.E[nE] = j;
@@ -447,7 +448,7 @@ public class Graf {
         }
     }
 
-    public int extractFromE() {
+    private int extractFromE() {
         int w = this.E[this.nE];
         this.E[this.nE] = 0;
         this.z[w] = 0;
@@ -455,7 +456,7 @@ public class Graf {
     }
 
     //Vybranie prvka z konca pola E
-    public int extractFromEndE() {
+    private int extractFromEndE() {
         int w = this.E[this.nE];
         this.E[this.nE] = 0;
         this.z[w] = 0;
@@ -463,7 +464,7 @@ public class Graf {
         return w;
     }
 
-    public int extractFromBeginningE() {
+    private int extractFromBeginningE() {
         int w = this.E[1];
         this.E[1] = this.E[this.nE];
         this.E[this.nE] = 0;
@@ -472,7 +473,7 @@ public class Graf {
         return w;
     }
 
-    public int extractMinFromE() {
+    private int extractMinFromE() {
         //Hladanie prvku postupnosti E s minimalnym t
 
         int temp = Integer.MAX_VALUE;
@@ -495,7 +496,7 @@ public class Graf {
     }
 
 
-    // Kruskalov algoritmus
+    //------------------------------------ Kruskalov Algoritmus ------------------------------------
     public void kruskalovAlgoritmus2() {
         int[] kostra;
         int [] k;
