@@ -502,22 +502,29 @@ public class Graf {
         int[] kostra;
         int [] k;
         int pocetHranVkostre = 0;
+        int[] end;
+        int[] w;
 
         k = new int[this.n + 1];
         kostra = new int[this.n + 1];
+        end = new int[this.n + 1];
+        w = new int[this.n + 1];
+
 
         //Zotriedenie pole hrán H podla ceny hran (vzrastuco)
         this.shellSort(2);
 
+        //Hrany z postupnosti P
+        int u;
+        int v;
         //Krok 2
         for (int i = 1; i < this.n + 1; i++) {
             k[i] = i; //Kazdy vrchol je vo svojom vlastnom komponente
+            w[i] = 0;
+            end[i] = i;
         }
 
-        pocetHranVkostre = 0;
 
-        int u;
-        int v;
         for (int j = 1; j < this.m + 1; j++) {
             u = this.H[j][0];
             v = this.H[j][1];
@@ -529,12 +536,19 @@ public class Graf {
                 kostra[pocetHranVkostre] = j;
                 int kmax = Math.max(k[u], k[v]);
                 int kmin = Math.min(k[u], k[v]);
-
-                for (int i = 1; i < this.n + 1; i++) {
-                    if (k[i] == kmax) {
-                        k[i] = kmin;
-                    }
+                //Pomale
+//                for (int i = 1; i < this.n + 1; i++) {
+//                    if (k[i] == kmax) {
+//                        k[i] = kmin;
+//                    }
+//                }
+                for (int t = kmax; w[t] > 0; t = w[t]) {
+                    k[t] = kmin;
                 }
+                k[end[kmax]] = kmin;
+                w[end[kmin]] = kmax;
+                end[kmin] = end[kmax];
+                end[kmax] = 0;
             }
         }
         // Vypocet ceny kostry
@@ -543,13 +557,14 @@ public class Graf {
             cenaKostry += this.H[j][2];
         }
 
+        //Vypis algoritmu
         System.out.println("Pocet hran kostry je " + pocetHranVkostre);
         System.out.println("Cena kostry je " + cenaKostry);
-        System.out.println("Hrany kostry su: ");
-        for (int i = 1; i < pocetHranVkostre + 1; i++) {
-            int r = kostra[i];
-            System.out.printf("[%d, %d]\n", this.H[i][0], this.H[i][1]);
-        }
+//        System.out.println("Hrany kostry su: ");
+//        for (int i = 1; i < pocetHranVkostre + 1; i++) {
+//            int r = kostra[i];
+//            System.out.printf("[%d, %d]\n", this.H[i][0], this.H[i][1]);
+//        }
     }
 
 }
