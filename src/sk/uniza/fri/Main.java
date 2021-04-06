@@ -21,7 +21,7 @@ class PrikladyGrafy {
         String meno = "";
         Graf g = null;
         Scanner volba = new Scanner(System.in);
-        System.out.println("Vyberte digrafu: ");
+        System.out.println("Vyberte súboru: ");
         System.out.println("1. Florida");
         System.out.println("2. NewYork");
         System.out.println("3. Pr1");
@@ -69,6 +69,7 @@ class PrikladyGrafy {
             System.out.println("4. Informácie o digrafe");
             System.out.println("5. Výpis digrafu");
             System.out.println("6. LababelSet");
+            System.out.println("7. Kruskalov A.");
             System.out.println("0. Koniec");
             System.out.print("Vaša volba: ");
 
@@ -92,6 +93,9 @@ class PrikladyGrafy {
                     break;
                 case 6:
                     g.labelSetAlgoritmus();
+                    break;
+                case 7:
+                    g.kruskalovAlgoritmus2();
                     break;
                 default:
                     System.exit(0);

@@ -494,5 +494,60 @@ public class Graf {
 
     }
 
+
+    // Kruskalov algoritmus
+    public void kruskalovAlgoritmus2() {
+        int[] kostra;
+        int [] k;
+        int pocetHranVkostre = 0;
+
+        k = new int[this.n + 1];
+        kostra = new int[this.n + 1];
+
+        //Zotriedenie pole hrán H podla ceny hran (vzrastuco)
+        this.shellSort(2);
+
+        //Krok 2
+        for (int i = 1; i < this.n + 1; i++) {
+            k[i] = i; //Kazdy vrchol je vo svojom vlastnom komponente
+        }
+
+        pocetHranVkostre = 0;
+
+        int u;
+        int v;
+        for (int j = 1; j < this.m + 1; j++) {
+            u = this.H[j][0];
+            v = this.H[j][1];
+
+            if (k[u] != k[v]) {
+                pocetHranVkostre++;
+
+                //Na riadku j sme nasli hranu, ktoru zaradime do kostry
+                kostra[pocetHranVkostre] = j;
+                int kmax = Math.max(k[u], k[v]);
+                int kmin = Math.min(k[u], k[v]);
+
+                for (int i = 1; i < this.n + 1; i++) {
+                    if (k[i] == kmax) {
+                        k[i] = kmin;
+                    }
+                }
+            }
+        }
+        // Vypocet ceny kostry
+        int cenaKostry = 0;
+        for (int j = 1; j < pocetHranVkostre + 1; j++) {
+            cenaKostry += this.H[j][2];
+        }
+
+        System.out.println("Pocet hran kostry je " + pocetHranVkostre);
+        System.out.println("Cena kostry je " + cenaKostry);
+        System.out.println("Hrany kostry su: ");
+        for (int i = 1; i < pocetHranVkostre + 1; i++) {
+            System.out.printf("[%d, %d]\n", this.H[i][0], this.H[i][1]);
+        }
+    }
+
 }
 
