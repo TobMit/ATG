@@ -546,6 +546,7 @@ public class Graf {
         System.out.println("Cena kostry je " + cenaKostry);
         System.out.println("Hrany kostry su: ");
         for (int i = 1; i < pocetHranVkostre + 1; i++) {
+            int r = kostra[i];
             System.out.printf("[%d, %d]\n", this.H[i][0], this.H[i][1]);
         }
     }
