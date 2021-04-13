@@ -20,6 +20,8 @@ class PrikladyGrafy {
     public static void main(String[] args) throws IOException {
         String meno = "";
         Graf g = null;
+        sk.uniza.fri.MonotonneOcislovanieVrcholov2 acg = null;
+
         Scanner volba = new Scanner(System.in);
         System.out.println("Vyberte súboru: ");
         System.out.println("1. Florida");
@@ -28,6 +30,7 @@ class PrikladyGrafy {
         System.out.println("4. SlovRep");
         System.out.println("5. Strakonice");
         System.out.println("6. TEST_mini");
+        System.out.println("7. CPM_stred(acykl)");
         System.out.println("0. Koniec");
         System.out.print("Vaša volba: ");
 
@@ -56,6 +59,10 @@ class PrikladyGrafy {
                 g = Graf.nacitajSubor("src/ATG_DAT/ShortestPath/TEST_mini.hrn");
                 meno = "TEST_mini";
                 break;
+            case 7:
+                acg = sk.uniza.fri.MonotonneOcislovanieVrcholov2.nacitajSubor("src/ATG_DAT/ACYKL/CPM_stred.hrn");
+                meno = "CPM_stred";
+                break;
             default:
                 System.exit(0);
         }
@@ -70,6 +77,7 @@ class PrikladyGrafy {
             System.out.println("5. Výpis digrafu");
             System.out.println("6. LababelSet");
             System.out.println("7. Kruskalov A.");
+            System.out.println("8. Monotonne očislovanie (iba acykl)");
             System.out.println("0. Koniec");
             System.out.print("Vaša volba: ");
 
@@ -96,6 +104,9 @@ class PrikladyGrafy {
                     break;
                 case 7:
                     g.kruskalovAlgoritmus2();
+                    break;
+                case 8:
+                    acg.labelSetAlgoritmus();
                     break;
                 default:
                     System.exit(0);
