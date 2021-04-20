@@ -19,25 +19,25 @@ import java.util.Scanner;
  */
 public class Graf {
 
-    private int n; // pocet vrcholov grafu
-    private int m; // pocet hran grafu
-    private int[][] H; // pole udajov o hranach
-    private int[] z;
-    private int[] E;
+    private final int n; // pocet vrcholov grafu
+    private final int m; // pocet hran grafu
+    private final int[][] h; // pole udajov o hranach
+    private final int[] z;
+    private final int[] e;
     private int nE;
-    private int[] t;
-    private int[] x;
-    private int[] S;
+    private final int[] t;
+    private final int[] x;
+    private final int[] s;
 
     public Graf(int paPocetVrcholov, int paPocetHran) {
         this.n = paPocetVrcholov;
         this.m = paPocetHran;
-        this.H = new int[1 + m][3];
+        this.h = new int[1 + this.m][3];
 
         this.z = new int[this.n + 1];
-        this.E = new int[this.n + 1];
+        this.e = new int[this.n + 1];
         this.nE = 0;
-        this.S = new int[this.n + 2];
+        this.s = new int[this.n + 2];
 
         this.t = new int[this.n + 1];
         this.x = new int[this.n + 1];
@@ -93,9 +93,9 @@ public class Graf {
             int v = s.nextInt();
             int c = s.nextInt();
 
-            g.H[j][0] = u;
-            g.H[j][1] = v;
-            g.H[j][2] = c;
+            g.h[j][0] = u;
+            g.h[j][1] = v;
+            g.h[j][2] = c;
         }
 
         // roztriedenie matice
@@ -116,16 +116,16 @@ public class Graf {
         //System.out.println(u + " " + v);
 
         // 1. krok - inicializácia
-        int[] t = new int[this.n + 1];
-        int[] x = new int[this.n + 1];
+//        int[] t = new int[this.n + 1];
+//        int[] x = new int[this.n + 1];
 
         for (int i = 0; i <= this.n; i++) {
-            t[i] = Integer.MAX_VALUE / 2 - 2;
-            x[i] = 0;
+            this.t[i] = Integer.MAX_VALUE / 2 - 2;
+            this.x[i] = 0;
         }
 
         //Hodnota zaciatocneho vrcholu na 0
-        t[u] = 0;
+        this.t[u] = 0;
 
         //2.Krok
 
@@ -137,34 +137,34 @@ public class Graf {
 
             for (int k = 1; k <= this.m; k++) {
                 //Zaciatok hrany
-                int i = H[k][0];
+                int i = this.h[k][0];
                 //Koniec hrany
-                int j = H[k][1];
+                int j = this.h[k][1];
                 //Cena hrany
-                int cij = H[k][2];
+                int cij = this.h[k][2];
 
-                if (t[j] > t[i] + cij) {
-                    t[j] = t[i] + cij;
-                    x[j] = i;
+                if (this.t[j] > this.t[i] + cij) {
+                    this.t[j] = this.t[i] + cij;
+                    this.x[j] = i;
                     zlesenie = true;
                 }
 
             }
         }
-        System.out.println("Vzdialenosť z vrchola " + u + " do vrchola " + v + " je " + t[v]);
+        System.out.println("Vzdialenosť z vrchola " + u + " do vrchola " + v + " je " + this.t[v]);
 
         //Najkratsia cesta
         int w = v;
         System.out.println(w);
-        while (x[w] > 0) {
-            System.out.println(x[w]);
-            w = x[w];
+        while (this.x[w] > 0) {
+            System.out.println(this.x[w]);
+            w = this.x[w];
         }
     }
 
     public void printInfo() {
-        System.out.println("Pocet vrcholov: " + n);
-        System.out.println("Pocet hran: " + m);
+        System.out.println("Pocet vrcholov: " + this.n);
+        System.out.println("Pocet hran: " + this.m);
     }
 
     //--------------------------------------- Floydov Algoritmus --------------------------------------
@@ -184,10 +184,10 @@ public class Graf {
         }
 
         // vytvorenie matice maticaVzdialenosti
-        for (int h = 1; h < this.m + 1; h++) {
-            int i = this.H[h][0];
-            int j = this.H[h][1];
-            int c = this.H[h][2];
+        for (int hi = 1; hi < this.m + 1; hi++) {
+            int i = this.h[hi][0];
+            int j = this.h[hi][1];
+            int c = this.h[hi][2];
 
             maticaVzdialenosti[i][j] = c;
         }
@@ -205,7 +205,7 @@ public class Graf {
         for (int i = 1; i < this.n + 1; i++) {
             System.out.printf("\n [");
             for (int j = 1; j < this.n + 1; j++) {
-                if (maticaVzdialenosti[i][j] < m + 1) {
+                if (maticaVzdialenosti[i][j] < this.m + 1) {
                     System.out.printf("%3d, ", maticaVzdialenosti[i][j]);
                 } else {
                     System.out.printf(" - , ");
@@ -229,11 +229,11 @@ public class Graf {
             for (int i = 1; i + gap <= this.m; i++) {
                 int j = i + gap;
                 int k;
-                if (this.H[i][s] > this.H[j][s]) {
+                if (this.h[i][s] > this.h[j][s]) {
                     this.swap(i, j);
                     for (k = i; k - gap >= 1; k = k - gap) {
                         int l = k - gap;
-                        if (this.H[l][s] <= this.H[k][s]) {
+                        if (this.h[l][s] <= this.h[k][s]) {
                             break;
                         }
                         this.swap(l, k);
@@ -248,8 +248,8 @@ public class Graf {
         int zlepsenie = 1;
         while (zlepsenie != 0) {
             zlepsenie = 0;
-            for (int k = 1; k < m; k++) {
-                if (this.H[k][0] > this.H[k + 1][0]) {
+            for (int k = 1; k < this.m; k++) {
+                if (this.h[k][0] > this.h[k + 1][0]) {
                     this.swap(k, k + 1);
                     zlepsenie = 1;
                 }
@@ -258,11 +258,11 @@ public class Graf {
     }
 
     private void swap(int i, int j) {
-        int odlozenieH = 0;
+        int odlozenieH;
         for (int k = 0; k <= 2; k++) {
-            odlozenieH = this.H[i][k];
-            this.H[i][k] = this.H[j][k];
-            this.H[j][k] = odlozenieH;
+            odlozenieH = this.h[i][k];
+            this.h[i][k] = this.h[j][k];
+            this.h[j][k] = odlozenieH;
         }
     }
 
@@ -274,7 +274,7 @@ public class Graf {
         for (int i = 1; i <= this.m; i++) {
             System.out.printf("%2d.  ", i);
             for (int j = 0; j < 3; j++) {
-                System.out.print(this.H[i][j] + " ");
+                System.out.print(this.h[i][j] + " ");
             }
             System.out.println();
         }
@@ -283,7 +283,7 @@ public class Graf {
     // -------------------------------------- Matice Smerníkov ---------------------------------------
     public void poleSmernikovMojaVerzia(int r) {
         //inicialzicia vynulovanie pola S[]
-        int velkostMatice = this.H[m][0];// velkosť polaS je určená najväčším prvom v pole H
+        int velkostMatice = this.h[this.m][0];// velkosť polaS je určená najväčším prvom v pole H
         int[] poleS = new int[velkostMatice + 1]; //<--- v prezentáci nie je určená veľkosť matice, takže sa ju snažím vypočítať podľa posledného prvku
         //for (int i = 0; i < n + 1; i++) {  //<----------------------- nerozumiem ako je to myslel, pretože n je omnoho väčšie ako veľkosť matice
                                            //dalej nie je určené presne aká byť veľká matica,
@@ -299,8 +299,8 @@ public class Graf {
         //Ak v H vstlpci 0 neobsahuje i potom poleS[i] = 0
         //Inak. PoleS[i] --> i (index) je číslo vrchola na prvom mieste poľa H
         //               --> hodnota poleS[i] je reálny riadok kde sa i nachádza prvý krát
-        for (int k = 1; k <= m; k++) {
-            int i = this.H[k][0];
+        for (int k = 1; k <= this.m; k++) {
+            int i = this.h[k][0];
             if (poleS[i] == 0) {
                 poleS[i] = k;
             }
@@ -330,8 +330,8 @@ public class Graf {
 
         //výpis všetkých hrán z H+(r)
         for (int i = poleS[r]; i < poleS[r + 1]; i++) {
-            int j = this.H[i][1];
-            System.out.printf("(%d, %d), cena %d\n", r, j, this.H[i][2]);
+            int j = this.h[i][1];
+            System.out.printf("(%d, %d), cena %d\n", r, j, this.h[i][2]);
         }
     }
 
@@ -339,38 +339,38 @@ public class Graf {
         //int[] S = new int[n + 2];
 
         //vynulovanie pola
-        for (int i = 0; i < n + 1; i++) {
-            S[i] = 0;
+        for (int i = 0; i < this.n + 1; i++) {
+            this.s[i] = 0;
         }
 
         //s[i] ukazuje na prvý riadok ola H taký te H[k][0] = i
 
-        for (int k = 1; k <= m; k++) {
-            int i = this.H[k][0];
-            if (S[i] == 0) {
-                S[i] = k;
+        for (int k = 1; k <= this.m; k++) {
+            int i = this.h[k][0];
+            if (this.s[i] == 0) {
+                this.s[i] = k;
             }
-            S[n + 1] = m + 1;
+            this.s[this.n + 1] = this.m + 1;
         }
 
-        for (int i = n; i >= 1; i--) {
-            if (S[i] == 0) {
-                S[i] = S[i + 1];
+        for (int i = this.n; i >= 1; i--) {
+            if (this.s[i] == 0) {
+                this.s[i] = this.s[i + 1];
             }
         }
 
         if (r > 0) {
             //Výpis hrán
-            for (int i = S[r]; i < S[r + 1]; i++) {
-                int j = this.H[i][1];
-                System.out.printf("(%d, %d), cena %d\n", r, j, this.H[i][2]);
+            for (int i = this.s[r]; i < this.s[r + 1]; i++) {
+                int j = this.h[i][1];
+                System.out.printf("(%d, %d), cena %d\n", r, j, this.h[i][2]);
             }
         }
     }
 
     //--------------------------------------- Label Set ----------------------------------------------
     public void labelSetAlgoritmus() {
-        //-1 preto aby sa nám nevypisovali hrany.
+        //-1 preto aby sa nám nevypisovali hrany v matice smerníkov.
         this.maticaSmernikov(-1);
         int u;
         int v;
@@ -397,7 +397,7 @@ public class Graf {
         for (int i = 1; i < this.n + 1; i++) {
             this.t[i] = Integer.MAX_VALUE / 2 - 2;
             this.x[i] = 0;
-            this.E[i] = 0;
+            this.e[i] = 0;
             this.z[i] = 0;
         }
 
@@ -417,9 +417,9 @@ public class Graf {
                 break;
             }
              */
-            for (int k = this.S[r]; k < this.S[r + 1]; k++) {
-                int j = this.H[k][1];
-                int crj = this.H[k][2];
+            for (int k = this.s[r]; k < this.s[r + 1]; k++) {
+                int j = this.h[k][1];
+                int crj = this.h[k][2];
 
                 if (this.t[j] > this.t[r] + crj) {
                     this.t[j] = this.t[r] + crj;
@@ -444,31 +444,31 @@ public class Graf {
     private void insertToEndE(int j) {
         if (this.z[j] == 0) {
             this.nE++;
-            this.E[nE] = j;
+            this.e[this.nE] = j;
             this.z[j] = 1;
         }
     }
 
     private int extractFromE() {
-        int w = this.E[this.nE];
-        this.E[this.nE] = 0;
+        int w = this.e[this.nE];
+        this.e[this.nE] = 0;
         this.z[w] = 0;
         return w;
     }
 
     //Vybranie prvka z konca pola E
     private int extractFromEndE() {
-        int w = this.E[this.nE];
-        this.E[this.nE] = 0;
+        int w = this.e[this.nE];
+        this.e[this.nE] = 0;
         this.z[w] = 0;
         this.nE--;
         return w;
     }
 
     private int extractFromBeginningE() {
-        int w = this.E[1];
-        this.E[1] = this.E[this.nE];
-        this.E[this.nE] = 0;
+        int w = this.e[1];
+        this.e[1] = this.e[this.nE];
+        this.e[this.nE] = 0;
         this.nE--;
         this.z[w] = 0;
         return w;
@@ -487,9 +487,9 @@ public class Graf {
             }
         }
 
-        int w = this.E[imin];
-        this.E[imin] = this.E[this.nE];
-        this.E[this.nE] = 0;
+        int w = this.e[imin];
+        this.e[imin] = this.e[this.nE];
+        this.e[this.nE] = 0;
         this.nE--;
         this.z[w] = 0;
         return w;
@@ -526,8 +526,8 @@ public class Graf {
 
 
         for (int j = 1; j < this.m + 1; j++) {
-            u = this.H[j][0];
-            v = this.H[j][1];
+            u = this.h[j][0];
+            v = this.h[j][1];
 
             if (k[u] != k[v]) {
                 pocetHranVkostre++;
@@ -542,8 +542,8 @@ public class Graf {
 //                        k[i] = kmin;
 //                    }
 //                }
-                for (int t = kmax; w[t] > 0; t = w[t]) {
-                    k[t] = kmin;
+                for (int ti = kmax; w[ti] > 0; ti = w[ti]) {
+                    k[ti] = kmin;
                 }
                 k[end[kmax]] = kmin;
                 w[end[kmin]] = kmax;
@@ -554,7 +554,7 @@ public class Graf {
         // Vypocet ceny kostry
         int cenaKostry = 0;
         for (int j = 1; j < pocetHranVkostre + 1; j++) {
-            cenaKostry += this.H[j][2];
+            cenaKostry += this.h[j][2];
         }
 
         //Vypis algoritmu

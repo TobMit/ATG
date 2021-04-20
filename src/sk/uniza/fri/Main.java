@@ -4,7 +4,6 @@
   * and open the template in the editor.
   */
 package sk.uniza.fri;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -15,12 +14,12 @@ import java.util.Scanner;
 class PrikladyGrafy {
     /**
      * @param args the command line arguments
-     * @throws java.io.FileNotFoundException
+
      */
     public static void main(String[] args) throws IOException {
         String meno = "";
         Graf g = null;
-        sk.uniza.fri.MonotonneOcislovanieVrcholov2 acg = null;
+        MonotonneOcislovanieVrcholov2 acg = null;
 
         Scanner volba = new Scanner(System.in);
         System.out.println("Vyberte súboru: ");
@@ -60,7 +59,7 @@ class PrikladyGrafy {
                 meno = "TEST_mini";
                 break;
             case 7:
-                acg = sk.uniza.fri.MonotonneOcislovanieVrcholov2.nacitajSubor("src/ATG_DAT/ACYKL/CPM_stred.hrn");
+                acg = MonotonneOcislovanieVrcholov2.nacitajSubor("src/ATG_DAT/ACYKL/CPM_stred.hrn");
                 meno = "CPM_stred";
                 break;
             default:
@@ -106,7 +105,7 @@ class PrikladyGrafy {
                     g.kruskalovAlgoritmus2();
                     break;
                 case 8:
-                    acg.labelSetAlgoritmus();
+                    acg.monotonneocislovanie();
                     break;
                 default:
                     System.exit(0);

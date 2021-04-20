@@ -11,15 +11,13 @@ import java.util.Scanner;
 
 public class MonotonneOcislovanieVrcholov2 {
 
-    private int n; // pocet vrcholov grafu
-    private int m; // pocet hran grafu
-    private int[][] H; // pole udajov o hranach
-    private int[] z;
-    private int[] E;
+    private final int n; // pocet vrcholov grafu
+    private final int m; // pocet hran grafu
+    private final int[][] h; // pole udajov o hranach
+    private final int[] z;
+    private final int[] e;
     private int nE;
-    private int[] t;
-    private int[] x;
-    private int[] s;
+    private final int[] s;
     //private int i; //index vrchola ktoreho odstranenie simulujem v ideg
     private int k; //pocet clenov postupnosti V
 
@@ -27,15 +25,12 @@ public class MonotonneOcislovanieVrcholov2 {
     public MonotonneOcislovanieVrcholov2(int paPocetVrcholov, int paPocetHran) {
         this.n = paPocetVrcholov;
         this.m = paPocetHran;
-        this.H = new int[1 + m][3];
+        this.h = new int[1 + this.m][3];
 
         this.z = new int[this.n + 1];
-        this.E = new int[this.n + 1];
+        this.e = new int[this.n + 1];
         this.nE = 0;
         this.s = new int[this.n + 2];
-
-        this.t = new int[this.n + 1];
-        this.x = new int[this.n + 1];
     }
     /*
     Nacitanie grafu zo suboru:
@@ -45,8 +40,7 @@ public class MonotonneOcislovanieVrcholov2 {
     poctu riadkov v subore a pocet vrcholov je rovny najvacsiemu cislu
     vrcholu v udajoch o hranach.
     */
-    public static MonotonneOcislovanieVrcholov2 nacitajSubor(String nazovSuboru)
-            throws FileNotFoundException {
+    public static MonotonneOcislovanieVrcholov2 nacitajSubor(String nazovSuboru) throws FileNotFoundException {
         // otvorim subor a pripravim Scanner pre nacitavanie
         Scanner s = new Scanner(new FileInputStream(nazovSuboru));
 
@@ -58,7 +52,7 @@ public class MonotonneOcislovanieVrcholov2 {
             // nacitam udaje o hrane
             int u = s.nextInt();
             int v = s.nextInt();
-            int c = s.nextInt();
+            s.nextInt();
 
             // nacital som hranu, zvysim ich pocet o 1
             pocetHran++;
@@ -88,9 +82,9 @@ public class MonotonneOcislovanieVrcholov2 {
             int v = s.nextInt();
             int c = s.nextInt();
 
-            g.H[j][0] = u;
-            g.H[j][1] = v;
-            g.H[j][2] = c;
+            g.h[j][0] = u;
+            g.h[j][1] = v;
+            g.h[j][2] = c;
         }
 
         // roztriedenie matice
@@ -110,11 +104,11 @@ public class MonotonneOcislovanieVrcholov2 {
             for (int i = 1; i + gap <= this.m; i++) {
                 int j = i + gap;
                 int ki;
-                if (this.H[i][s] > this.H[j][s]) {
+                if (this.h[i][s] > this.h[j][s]) {
                     this.swap(i, j);
                     for (ki = i; ki - gap >= 1; ki = ki - gap) {
                         int l = ki - gap;
-                        if (this.H[l][s] <= this.H[ki][s]) {
+                        if (this.h[l][s] <= this.h[ki][s]) {
                             break;
                         }
                         this.swap(l, ki);
@@ -124,32 +118,32 @@ public class MonotonneOcislovanieVrcholov2 {
         }
     }
     private void swap(int i, int j) {
-        int odlozenieH = 0;
-        for (int ki = 0; k <= 2; ki++) {
-            odlozenieH = this.H[i][ki];
-            this.H[i][ki] = this.H[j][ki];
-            this.H[j][ki] = odlozenieH;
+        int odlozenieH;
+        for (int ki = 0; ki <= 2; ki++) {
+            odlozenieH = this.h[i][ki];
+            this.h[i][ki] = this.h[j][ki];
+            this.h[j][ki] = odlozenieH;
         }
     }
     public void maticaSmernikov(int r) {
         //int[] S = new int[n + 2];
 
         //vynulovanie pola
-        for (int i = 0; i < n + 1; i++) {
+        for (int i = 0; i < this.n + 1; i++) {
             this.s[i] = 0;
         }
 
         //s[i] ukazuje na prvý riadok ola H taký te H[k][0] = i
 
-        for (int k = 1; k <= m; k++) {
-            int i = this.H[k][0];
+        for (int kk = 1; kk <= this.m; kk++) {
+            int i = this.h[kk][0];
             if (this.s[i] == 0) {
-                this.s[i] = k;
+                this.s[i] = kk;
             }
-            this.s[n + 1] = m + 1;
+            this.s[this.n + 1] = this.m + 1;
         }
 
-        for (int i = n; i >= 1; i--) {
+        for (int i = this.n; i >= 1; i--) {
             if (this.s[i] == 0) {
                 this.s[i] = this.s[i + 1];
             }
@@ -158,13 +152,13 @@ public class MonotonneOcislovanieVrcholov2 {
         if (r > 0) {
             //Výpis hrán
             for (int i = this.s[r]; i < this.s[r + 1]; i++) {
-                int j = this.H[i][1];
-                System.out.printf("(%d, %d), cena %d\n", r, j, this.H[i][2]);
+                int j = this.h[i][1];
+                System.out.printf("(%d, %d), cena %d\n", r, j, this.h[i][2]);
             }
         }
     }
     //--------------------------------------- Label Set ----------------------------------------------
-    public void labelSetAlgoritmus() {
+    public void monotonneocislovanie() {
         //-1 preto aby sa nám nevypisovali hrany.
         this.maticaSmernikov(-1);
 
@@ -182,7 +176,7 @@ public class MonotonneOcislovanieVrcholov2 {
 
         //vypocet vstupnych stupov vrcholov
         for (int j = 1; j < this.m + 1; j++) {
-            int vv = this.H[j][1];
+            int vv = this.h[j][1];
             ideg[vv]++;
         }
 
@@ -200,7 +194,7 @@ public class MonotonneOcislovanieVrcholov2 {
 
         for (int i = 1; i < this.n + 1; i++) {
             for (int j = this.s[V[i]]; j < this.s[V[i] + 1]; j++) {
-                int w = this.H[j][1];
+                int w = this.h[j][1];
                 ideg[w]--;
                 if (ideg[w] == 0) {
                     this.k++;
@@ -221,24 +215,6 @@ public class MonotonneOcislovanieVrcholov2 {
             System.out.print(V[i] + " ");
         }
     }
-
-    private void insertToEndE(int j) {
-        if (this.z[j] == 0) {
-            this.nE++;
-            this.E[nE] = j;
-            this.z[j] = 1;
-        }
-    }
-        //Vybranie prvka z konca pola E
-    private int extractFromEndE() {
-        int w = this.E[this.nE];
-        this.E[this.nE] = 0;
-        this.z[w] = 0;
-        this.nE--;
-        return w;
-    }
-
-
 }
 
 
