@@ -29,7 +29,7 @@ class PrikladyGrafy {
         System.out.println("4. SlovRep");
         System.out.println("5. Strakonice");
         System.out.println("6. TEST_mini");
-        System.out.println("7. CPM_stred(acykl)");
+        System.out.println("7. CPM_mini(acykl)");
         System.out.println("0. Koniec");
         System.out.print("Vaša volba: ");
 
@@ -59,7 +59,7 @@ class PrikladyGrafy {
                 meno = "TEST_mini";
                 break;
             case 7:
-                acg = MonotonneOcislovanieVrcholov2.nacitajSubor("src/ATG_DAT/ACYKL/CPM_stred.hrn");
+//                acg = MonotonneOcislovanieVrcholov2.nacitajSubor("src/ATG_DAT/ACYKL/CPM_stred.hrn");
                 meno = "CPM_stred";
                 break;
             default:
@@ -77,6 +77,7 @@ class PrikladyGrafy {
             System.out.println("6. LababelSet");
             System.out.println("7. Kruskalov A.");
             System.out.println("8. Monotonne očislovanie (iba acykl)");
+            System.out.println("9. CPM");
             System.out.println("0. Koniec");
             System.out.print("Vaša volba: ");
 
@@ -105,7 +106,12 @@ class PrikladyGrafy {
                     g.kruskalovAlgoritmus2();
                     break;
                 case 8:
+                    acg = MonotonneOcislovanieVrcholov2.nacitajSubor("src/ATG_DAT/ACYKL/CPM_mini.hrn");
                     acg.monotonneocislovanie();
+                    break;
+                case 9:
+                    CPM cpm = CPM.nacitajSubor("src/ATG_DAT/ACYKL/CPM_mini.hrn");
+                    cpm.cpm();
                     break;
                 default:
                     System.exit(0);
