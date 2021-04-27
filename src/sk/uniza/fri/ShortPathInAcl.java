@@ -281,9 +281,9 @@ public class ShortPathInAcl {
         System.out.println(" " + i);
         System.out.println(" " + x[i]);
 
-        System.out.printf();
+        System.out.println();
         for (int j = 0; j < x.length; j++) {
-            System.out.printf("%d.  %d\n", j, x[j]);
+            System.out.printf("%2d.  %d\n", j, x[j]);
         }
 
     }

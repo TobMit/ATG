@@ -80,6 +80,7 @@ class PrikladyGrafy {
             System.out.println("8. Monotonne očislovanie (iba acykl)");
             System.out.println("9. CPM");
             System.out.println("10. Najkratšia cesta v Acykl");
+            System.out.println("11. Záporna cena");
             System.out.println("0. Koniec");
             System.out.print("Vaša volba: ");
 
@@ -118,6 +119,10 @@ class PrikladyGrafy {
                 case 10:
                     ShortPathInAcl spi = ShortPathInAcl.nacitajSubor("src/ATG_DAT/ACYKL/CPM_stred.hrn");
                     spi.monotonneocislovanie();
+                    break;
+                case 11:
+                    ZapornyCykus zc = ZapornyCykus.nacitajSubor("src/ATG_DAT/CYKL_DIGRAF/CYKL_mini.hrn");
+                    zc.labelSetAlgoritmus();
                     break;
                 default:
                     System.exit(0);
