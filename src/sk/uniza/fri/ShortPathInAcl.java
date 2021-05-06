@@ -243,7 +243,7 @@ public class ShortPathInAcl {
 
         for (int i = 1; i < this.n + 1; i++) {
             this.x[i] = 0;
-            this.t[i] = Integer.MAX_VALUE / 2;
+            this.t[i] = Integer.MAX_VALUE / 2; //!!!!!!!!!!!!!!!!!!!!!!!!!! Vždy deleno 2
         }
         this.t[start] = 0;
 

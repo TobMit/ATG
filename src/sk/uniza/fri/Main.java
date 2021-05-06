@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author tomas
  */
-class PrikladyGrafy {
+class Main {
     /**
      * @param args the command line arguments
 
@@ -36,7 +36,8 @@ class PrikladyGrafy {
 
         switch (volba.nextInt()) {
             case 1:
-                g = Graf.nacitajSubor("src/ATG_DAT/ShortestPath/Florida.hrn");
+                g = Graf.nacitajSuborBin("src/ATG_DAT/ShortestPath/Florida.hrnb");
+                //g = Graf.nacitajSuborBin("src/ATG_DAT/ShortestPath/Florida.hrnb");
                 meno = "Florida";
                 break;
             case 2:
@@ -56,6 +57,7 @@ class PrikladyGrafy {
                 meno = "Strakonice";
                 break;
             case 6:
+                //g = Graf.nacitajSuborBin("src/ATG_DAT/ShortestPath/TEST_mini.hrnb");
                 g = Graf.nacitajSubor("src/ATG_DAT/ShortestPath/TEST_mini.hrn");
                 meno = "TEST_mini";
                 break;

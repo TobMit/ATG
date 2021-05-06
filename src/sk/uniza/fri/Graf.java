@@ -7,15 +7,17 @@ package sk.uniza.fri;
 
 
 //import java.awt.image.Kernel;
+import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 //import java.lang.reflect.Array;
 //import java.util.Arrays;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
  *
- * @author tomas
  */
 public class Graf {
 
@@ -101,6 +103,42 @@ public class Graf {
         // roztriedenie matice
         g.shellSort(0);
         return g;
+    }
+
+    public static Graf nacitajSuborBin(String nazovSuboru) {
+        File saveSubor = new File(nazovSuboru);
+        try (DataInputStream save = new DataInputStream(new FileInputStream(saveSubor))) {
+            int overenieSuboru = save.readInt();
+            //0x415447 je v Hex ATG slúži na to aby sa nebinárne nenačítavali.
+            if (overenieSuboru != 0x415447) {
+                System.out.println("Zlý súbor na čítanie");
+                System.exit(0);
+            }
+            int n = save.readInt();
+            int m = save.readInt();
+            System.out.println(n);
+            System.out.println(m);
+            Graf graf = new Graf(n, m);
+            System.out.println("graf vytvoreny");
+            System.out.println(graf.h.length);
+            for (int i = 0; i < m + 1 ; i++) {
+                graf.h[i][0] = save.readInt();
+                graf.h[i][1] = save.readInt();
+                graf.h[i][2] = save.readInt();
+
+                //System.out.printf("%d \t %d \t %d %n", graf.h[i][0], graf.h[i][1], graf.h[i][2]);
+            }
+            System.out.println("Nacitane");
+            graf.shellSort(0);
+            save.close();
+            return graf;
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Nepodarilo sa otvorit súbor - asi neexistuje.");
+        } catch (IOException e) {
+            System.out.println("Nepodarilo sa nacitat súbor.");
+        }
+        return null;
     }
 
     //------------------------------------- zakladny Algoritmus ---------------------------------------
