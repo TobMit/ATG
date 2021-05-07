@@ -29,14 +29,13 @@ class Main {
         System.out.println("4. SlovRep");
         System.out.println("5. Strakonice");
         System.out.println("6. TEST_mini");
-        System.out.println("7. CPM_mini(acykl)");
-        System.out.println("8. CPM_mini(acykl)");
+        System.out.println("7. Ine. - použiť pre algoritmi 8 a viac.");
         System.out.println("0. Koniec");
         System.out.print("Vaša volba: ");
 
         switch (volba.nextInt()) {
             case 1:
-                g = Graf.nacitajSuborBin("src/ATG_DAT/ShortestPath/Florida.hrnb");
+                g = Graf.nacitajSubor("src/ATG_DAT/ShortestPath/Florida.hrn");
                 //g = Graf.nacitajSuborBin("src/ATG_DAT/ShortestPath/Florida.hrnb");
                 meno = "Florida";
                 break;
@@ -63,7 +62,7 @@ class Main {
                 break;
             case 7:
 //                acg = MonotonneOcislovanieVrcholov2.nacitajSubor("src/ATG_DAT/ACYKL/CPM_stred.hrn");
-                meno = "CPM_stred";
+                meno = "Iné";
                 break;
             default:
                 System.exit(0);
@@ -79,10 +78,10 @@ class Main {
             System.out.println("5. Výpis digrafu");
             System.out.println("6. LababelSet");
             System.out.println("7. Kruskalov A.");
-            System.out.println("8. Monotonne očislovanie (iba acykl)");
-            System.out.println("9. CPM");
-            System.out.println("10. Najkratšia cesta v Acykl");
-            System.out.println("11. Záporna cena");
+            System.out.println("8. Monotonne očislovanie (iba acykl) - CPM_Mini");
+            System.out.println("9. CPM - CPM_Mini");
+            System.out.println("10. Najkratšia cesta v Acykl - CPM_Stred");
+            System.out.println("11. Záporna cena - CYKL_mini");
             System.out.println("0. Koniec");
             System.out.print("Vaša volba: ");
 
@@ -120,11 +119,11 @@ class Main {
                     break;
                 case 10:
                     ShortPathInAcl spi = ShortPathInAcl.nacitajSubor("src/ATG_DAT/ACYKL/CPM_stred.hrn");
-                    spi.monotonneocislovanie();
+                    spi.shortPatchInAcl();
                     break;
                 case 11:
                     ZapornyCykus zc = ZapornyCykus.nacitajSubor("src/ATG_DAT/CYKL_DIGRAF/CYKL_mini.hrn");
-                    zc.labelSetAlgoritmus();
+                    zc.zapornyCyklus();
                     break;
                 default:
                     System.exit(0);

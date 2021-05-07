@@ -166,8 +166,7 @@ public class ShortPathInAcl {
             }
         }
     }
-    //--------------------------------------- Label Set ----------------------------------------------
-    public void monotonneocislovanie() {
+    public void shortPatchInAcl() {
         //-1 preto aby sa nám nevypisovali hrany.
         this.maticaSmernikov(-1);
 

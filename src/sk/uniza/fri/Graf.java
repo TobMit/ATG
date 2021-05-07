@@ -55,8 +55,8 @@ public class Graf {
     public static Graf nacitajSubor(String nazovSuboru)
             throws FileNotFoundException {
         // otvorim subor a pripravim Scanner pre nacitavanie
+        //Scanner s = new Scanner(new FileInputStream(nazovSuboru));
         Scanner s = new Scanner(new FileInputStream(nazovSuboru));
-
         // najskor len zistim pocet vrcholov a pocet hran
         int pocetVrcholov = 1;
         int pocetHran = 0;

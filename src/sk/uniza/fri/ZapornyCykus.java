@@ -191,8 +191,7 @@ public class ZapornyCykus {
         }
     }
 
-    //--------------------------------------- Label Set ----------------------------------------------
-    public void labelSetAlgoritmus() {
+    public void zapornyCyklus() {
         //-1 preto aby sa nám nevypisovali hrany v matice smerníkov.
         this.maticaSmernikov(-1);
         int u;
