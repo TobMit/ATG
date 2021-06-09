@@ -123,6 +123,7 @@ public class CPM {
     }
 
     public void cpm() {
+        //Krok 1
         this.monotonneOcislovanie();
         /*
          * Zaciatok CPM
@@ -130,6 +131,7 @@ public class CPM {
 
         //Vypocet najskor moznych zaciatkov cinnosti
 
+        // Krok 2
         //Inicializacia
         for (int i = 1; i < this.n + 1; i++) {
             this.x[i] = 0;
@@ -137,6 +139,7 @@ public class CPM {
         }
 
         //Posledne V[n] nema naslednikov - preto iba this.n
+        //Krok 3
         for (int i = 1; i < this.n; i++) {
             int r = this.V[i];
             //Riadky v ktorych existuje hrana (r, w)
@@ -150,6 +153,7 @@ public class CPM {
             }
         }
 
+        //Krok 4
         //Vypocitanie trvania T projektu ako maximum najskor moznych
         // koncov vsetkych cinnosti
         //this.Z[i] + this.P[i] je najskor mozny koniec cinnosti i

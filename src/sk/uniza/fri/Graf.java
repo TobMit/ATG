@@ -153,7 +153,7 @@ public class Graf {
         v = scanner.nextInt();
         //System.out.println(u + " " + v);
 
-        // 1. krok - inicializácia
+        // 1. krok - inicializácia - presunutá do konštruktora
 //        int[] t = new int[this.n + 1];
 //        int[] x = new int[this.n + 1];
 
@@ -180,7 +180,7 @@ public class Graf {
                 int j = this.h[k][1];
                 //Cena hrany
                 int cij = this.h[k][2];
-
+                // overenie či je zlepšenie
                 if (this.t[j] > this.t[i] + cij) {
                     this.t[j] = this.t[i] + cij;
                     this.x[j] = i;
@@ -208,9 +208,10 @@ public class Graf {
     //--------------------------------------- Floydov Algoritmus --------------------------------------
     public void cvicenieTriFloydovAlgoritmus() {
 
+        //zostrojenie matice
         int[][] maticaVzdialenosti = new int [this.n + 1][this.n + 1];
 
-        //Vynovanie pola
+        //Vynuvanie pola
         for (int i = 1; i < this.n + 1; i++) {
             for (int j = 1; j < this.n + 1; j++) {
                 maticaVzdialenosti[i][j] = Integer.MAX_VALUE / 2 - 2;
@@ -229,6 +230,8 @@ public class Graf {
 
             maticaVzdialenosti[i][j] = c;
         }
+
+        // Krok dva
         for (int k = 1; k < this.n + 1; k++) {
             for (int i = 1; i < this.n + 1; i++) {
                 for (int j = 1; j < this.n + 1; j++) {
@@ -455,6 +458,8 @@ public class Graf {
                 break;
             }
              */
+
+            //Krok dva
             for (int k = this.s[r]; k < this.s[r + 1]; k++) {
                 int j = this.h[k][1];
                 int crj = this.h[k][2];
@@ -467,6 +472,7 @@ public class Graf {
             }
         }
 
+        //Krok 3
         System.out.println("Vzdialenost z vrchola " + u + " do vrchola " + v + " je " + this.t[v]);
 
         //Najkratsia cesta
@@ -549,6 +555,7 @@ public class Graf {
         w = new int[this.n + 1];
 
 
+        //Krok 1
         //Zotriedenie pole hrán H podla ceny hran (vzrastuco)
         this.shellSort(2);
 
@@ -562,7 +569,7 @@ public class Graf {
             end[i] = i;
         }
 
-
+        //Krok 3
         for (int j = 1; j < this.m + 1; j++) {
             u = this.h[j][0];
             v = this.h[j][1];
@@ -595,6 +602,7 @@ public class Graf {
             cenaKostry += this.h[j][2];
         }
 
+        //Krok 4
         //Vypis algoritmu
         System.out.println("Pocet hran kostry je " + pocetHranVkostre);
         System.out.println("Cena kostry je " + cenaKostry);

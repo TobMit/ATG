@@ -167,6 +167,7 @@ public class ShortPathInAcl {
         }
     }
     public void shortPatchInAcl() {
+        //Krok 1
         //-1 preto aby sa nám nevypisovali hrany.
         this.maticaSmernikov(-1);
 
@@ -240,6 +241,7 @@ public class ShortPathInAcl {
             }
         }
 
+        //Krok 2
         for (int i = 1; i < this.n + 1; i++) {
             this.x[i] = 0;
             this.t[i] = Integer.MAX_VALUE / 2; //!!!!!!!!!!!!!!!!!!!!!!!!!! Vždy deleno 2
@@ -251,6 +253,7 @@ public class ShortPathInAcl {
             return;
         }
 
+        //Krok 3
         int r = 0;
         //System.out.println(V[istart]);
         for (int i = istart; i < this.n + 1; i++) {
@@ -278,12 +281,12 @@ public class ShortPathInAcl {
             System.out.println(i);
         }
         System.out.println(" " + i);
-        System.out.println(" " + x[i]);
+        //System.out.println(" " + x[i]);
 
-        System.out.println();
-        for (int j = 0; j < x.length; j++) {
-            System.out.printf("%2d.  %d\n", j, x[j]);
-        }
+//        System.out.println();
+//        for (int j = 0; j < x.length; j++) {
+//            System.out.printf("%2d.  %d\n", j, x[j]);
+//        }
 
     }
 }

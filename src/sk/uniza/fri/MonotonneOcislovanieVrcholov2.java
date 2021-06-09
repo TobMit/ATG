@@ -174,6 +174,7 @@ public class MonotonneOcislovanieVrcholov2 {
             ideg[i] = 0;
         }
 
+        //Krok 1
         //vypocet vstupnych stupov vrcholov
         for (int j = 1; j < this.m + 1; j++) {
             int vv = this.h[j][1];
@@ -192,6 +193,7 @@ public class MonotonneOcislovanieVrcholov2 {
 
         //Simolovanie postunenho odstranovania vrcholov V[1], V[2]... z digrafu
 
+        //Krok 2
         for (int i = 1; i < this.n + 1; i++) {
             for (int j = this.s[V[i]]; j < this.s[V[i] + 1]; j++) {
                 int w = this.h[j][1];
@@ -207,6 +209,7 @@ public class MonotonneOcislovanieVrcholov2 {
         }
 
         //Kontrola ci graf je acyklicky
+        //Ak je acyklický tak sa dá prečíslovať tak že platí i < K
         if (this.k != this.n) {
             System.out.println("Graf nie je acyklicky.");
         }
